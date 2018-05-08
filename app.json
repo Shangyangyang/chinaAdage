@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3399cc",
+    "borderStyle": "black",
+    "backgroundColor": "#ededed",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "每日更新",
+        "iconPath": "images/first_hl.png",
+        "selectedIconPath": "images/first.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "查询",
+        "iconPath": "images/first_hl.png",
+        "selectedIconPath": "images/first.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text":  "我的",
+        "iconPath": "images/first_hl.png",
+        "selectedIconPath": "images/first.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f2efe6",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "debug": true
+}

@@ -1,0 +1,2 @@
+<!--pages/cn/ainannan/component/dict/dict-show.wxml-->
+<text>{{dictLabel}}</text>

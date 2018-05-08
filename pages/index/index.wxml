@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<view class='titleViews'>
+  <view class='titleView'>
+    <text class='titleText'>{{adage.adage}}</text>
+  </view>
+  <view class='voteView'>
+    <image src='../../images/upvote.png' style='width:20px;height:20px;'/><text>{{adage.upvote}}　</text>
+    <image src='../../images/downvote.png' style='width:20px;height:20px;'/><text>{{adage.downvote}}</text>
+  </view>
+</view>
+<view class="modal-box" hidden="{{outFlag}}">
+    <view class="modal-body">
+      <text style='color:#fff;'>
+          \n
+          \n
+          　本条提示只出现一次，请仔细阅读。
+          　新朋友每天的浏览谚语上限为5条，
+          　可以通过积分升级上限，
+          　积分可通过每天登录、点赞、评论获取，
+          　希望你能慢慢消化每条谚语。
+          \n
+      </text>
+      <button class="knowBtn" bindtap="hide">我知道了</button>
+    </view>
+  </view>
+
+<view class='buttonView'>
+  <view class='circle collectshare collectView'><text class='centerText'>收藏</text></view>
+  <view class='circle nextView' bindtap='next'><text class='centerText'>下一个</text></view>
+  <view class='circle collectshare shareView'><text class='centerText'>分享</text></view>
+</view>

@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/cn/ainannan/index/index",
+    "pages/cn/ainannan/search/search",
+    "pages/cn/ainannan/my/my"
   ],
   "tabBar": {
     "color": "#7A7E83",
@@ -9,20 +11,20 @@
     "backgroundColor": "#ededed",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/cn/ainannan/index/index",
         "text": "每日更新",
         "iconPath": "images/first_hl.png",
         "selectedIconPath": "images/first.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/cn/ainannan/search/search",
         "text": "查询",
         "iconPath": "images/first_hl.png",
         "selectedIconPath": "images/first.png"
       },
       {
-        "pagePath": "pages/index/index",
-        "text":  "我的",
+        "pagePath": "pages/cn/ainannan/my/my",
+        "text": "我的",
         "iconPath": "images/first_hl.png",
         "selectedIconPath": "images/first.png"
       }

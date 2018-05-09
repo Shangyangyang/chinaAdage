@@ -9,6 +9,10 @@ App({
     userId: null
   },
   getUserKey: function(){
+    let localUserId = wx.getStorageSync("userId");
+    if (localUserId != null && localUserId != ""){
+      return localUserId;
+    }
     if(this.globalData.userId == null){
       var that = this;
       return new Promise(function (resolve, reject) {
@@ -37,9 +41,50 @@ App({
       return this.globalData.userId;
     }
   },
+  formatDate: function(date) {
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString();
+    var day = (date.getDate()).toString();
+    if (month.length == 1) {
+      month = "0" + month;
+    }
+    if (day.length == 1) {
+      day = "0" + day;
+    }
+    var dateTime = year + month + day;
+
+    return dateTime;
+  },
   onLaunch: function () {
     // 获取变量
     var that = this;
+
+    // 判断用户登录时间
+    let curDate = new Date();
+    console.log(that.formatDate(curDate));
+    let localDate = wx.getStorageSync("curDate");
+    if (localDate == null || localDate == '' || that.formatDate(curDate) != that.formatDate(localDate)){
+      // 新用户，更新登录时间
+      wx.setStorage({
+        key: 'curDate',
+        data: that.formatDate(curDate),
+      });
+      wx.request({
+        url: this.config.apiBase + 'sys/login/updateLoginDate',
+        method: 'POST',
+        data: {
+          id: this.getUserKey(),
+          lastLogin: curDate
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          console.log("更新登录时间：" + res.data.status);
+        }
+      });
+    }
+
     // 获取用户信息
     wx.getSetting({
       success: res => {

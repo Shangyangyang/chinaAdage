@@ -1,8 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp();
-var fetch = require("../utils/fetch.js");
-var commons = require('../utils/commons.js');
+var fetch = require("../../../utils/fetch.js");
+var commons = require('../../../utils/commons.js');
 
 Page({
   data: {
@@ -51,8 +51,7 @@ Page({
           if (res == null) {
             this.loadAdage(res);
           } else {
-            // 未登录的操作
-            console.log("未登录");
+            commons.showTip("未登录", "none");
           }
         });
       } else {
@@ -63,6 +62,19 @@ Page({
         adage: curAdage
       });
     }
+  },
+  collect: function(){
+    // 收藏操作
+    console.log(this.data.adage.id);
+    console.log(wx.getStorageSync("userId"));
+    fetch(`adage/addCollect?user.id=${app.getUserKey()}&adage.id=${this.data.adage.id}`).then(res => {
+      if(res.data.status == '1'){
+        commons.showTip("收藏成功！", "none");
+      }else{
+        commons.showTip(res.data.message , "none");
+      }
+      
+    });
   },
   next: function(event){
     let flag = wx.getStorageSync("firstClickNext");
@@ -75,7 +87,7 @@ Page({
       })
     }
     
-    let userId = wx.getStorageSync("userId");
+    let userId = app.getUserKey();
     var that = this;
     if (userId == "" || userId == null) {
       app.getUserKey().then(function (res) {
@@ -93,5 +105,19 @@ Page({
   },
   hide: function(){
     this.setData({ outFlag: true });
+  },
+  onShareAppMessage: function(res){
+    if(res.from == 'button'){
+      console.log("来自页面内转发按钮");
+    }
+    return{
+      title:'这真是',
+      success: function(res){
+        console.log("转发成功");
+      },
+      fail: function(res){
+        console.log("转发失败");
+      }
+    }
   }
 })

@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/cn/ainannan/index/index",
+    "pages/cn/ainannan/my/my",
     "pages/cn/ainannan/search/search",
-    "pages/cn/ainannan/my/my"
+    "pages/cn/ainannan/index/index"
   ],
   "tabBar": {
     "color": "#7A7E83",

@@ -1,1 +1,27 @@
 /* pages/cn/ainannan/my/my.wxss */
+.headView{
+  width: 100%;
+  height: 27%;       
+  /* background-color: #e1ded5; */
+  background-image: url(http://localhost:8081/test/my-head-bg.png);
+  background-size:100% 100%;
+  border-bottom: 20px solid #eee;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin-top: 50rpx;
+  margin-bottom: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #333;
+}

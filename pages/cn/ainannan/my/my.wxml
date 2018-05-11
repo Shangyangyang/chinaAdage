@@ -1,2 +1,15 @@
 <!--pages/cn/ainannan/my/my.wxml-->
-<text>pages/cn/ainannan/my/my.wxml</text>
+<view class='headView'>
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  </view>
+  <view>我的收藏</view>
+  <view>我的积分</view>
+</view>
+<view>
+  <view>我的收藏</view>
+  <view>我的积分</view>
+  <view>关于谚语屋</view>
+</view>

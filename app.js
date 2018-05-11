@@ -42,6 +42,7 @@ App({
     }
   },
   formatDate: function(date) {
+    // var date = new Date(Date.parse(date)); 
     var year = date.getFullYear();
     var month = (date.getMonth() + 1).toString();
     var day = (date.getDate()).toString();
@@ -54,21 +55,33 @@ App({
     var dateTime = year + month + day;
 
     return dateTime;
-  },
+  }, 
+  getUserInfo: function (cb) {
+    var that = this;
+    if (this.globalData.userInfo) {
+      typeof cb == "function" && cb(this.globalData.userInfo)
+    } else {
+      //调用登录接口  
+      wx.login({
+        success: function () {
+          wx.getUserInfo({
+            success: function (res) {
+              that.globalData.userInfo = res.userInfo;
+              typeof cb == "function" && cb(that.globalData.userInfo)
+            }
+          })
+        }
+      });
+    }
+  }, 
   onLaunch: function () {
     // 获取变量
     var that = this;
 
     // 判断用户登录时间
     let curDate = new Date();
-    console.log(that.formatDate(curDate));
     let localDate = wx.getStorageSync("curDate");
-    if (localDate == null || localDate == '' || that.formatDate(curDate) != that.formatDate(localDate)){
-      // 新用户，更新登录时间
-      wx.setStorage({
-        key: 'curDate',
-        data: that.formatDate(curDate),
-      });
+    if (localDate == null || localDate == '' || that.formatDate(curDate) != localDate){      
       wx.request({
         url: this.config.apiBase + 'sys/login/updateLoginDate',
         method: 'POST',
@@ -76,34 +89,17 @@ App({
           id: this.getUserKey(),
           lastLogin: curDate
         },
-        header: {
-          'content-type': 'application/json' // 默认值
+        header:{
+          'content-type': 'application/json'
         },
         success: function (res) {
-          console.log("更新登录时间：" + res.data.status);
+          // 新用户，更新登录时间
+          wx.setStorage({
+            key: 'curDate',
+            data: that.formatDate(curDate),
+          });
         }
       });
     }
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
   }
 })

@@ -7,7 +7,6 @@ var commons = require('../../../utils/commons.js');
 Page({
   data: {
     adage: {},
-    aaa: '测试',
     outFlag: true
   },
   addBrowseRecord: function (userId, adageId) {
@@ -48,14 +47,14 @@ Page({
       var that = this;
       if (userId == "" || userId == null) {
         app.getUserKey().then(function (res) {
-          if (res == null) {
-            this.loadAdage(res);
+          if (res != null) {
+            that.loadAdage(res);
           } else {
             commons.showTip("未登录", "none");
           }
         });
       } else {
-        this.loadAdage(userId);
+        that.loadAdage(userId);
       }  
     }else{
       this.setData({

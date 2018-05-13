@@ -15,7 +15,9 @@ Page({
       avatarUrl: "",//用户头像  
       nickName: "",//用户昵称  
       hasUserInfo: false
-    } 
+    },
+    user: {},
+    onShowFlag: false
   },
 
   onLoad: function () {
@@ -31,7 +33,45 @@ Page({
           hasUserInfo: true
         })
       }
-    })
+    });
+
+    // 获取收藏及积分信息
+    fetch(`adage/getUserCollectGoldCoin?id=${app.getUserKey()}`).then(res => {
+      if(res.data.status == '1'){
+        that.setData({
+          user: res.data.data
+        });
+      } else {
+        console.log("获取收藏及积分信息失败");
+      }
+    });
+
+    this.setData({
+      onShowFlag: true
+    });
+
+  },
+  /**
+  * 每次显示的时候刷新获取收藏及积分信息。
+  */
+  onShow: function () {
+    if(this.data.onShowFlag){
+      this.setData({
+        onShowFlag: false
+      });
+    } else {
+      // 获取收藏及积分信息
+      var that = this;
+      fetch(`adage/getUserCollectGoldCoin?id=${app.getUserKey()}`).then(res => {
+        if (res.data.status == '1') {
+          that.setData({
+            user: res.data.data
+          });
+        } else {
+          console.log("获取收藏及积分信息失败");
+        }
+      });
+    }
   },
   getUserInfo: function (e) {
     console.log(e)

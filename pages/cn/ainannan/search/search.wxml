@@ -1,2 +1,33 @@
-<!--pages/cn/ainannan/search/search.wxml-->
-<text>pages/cn/ainannan/search/search.wxml</text>
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"/>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{searchText}}" focus="{{searchShowed}}" bindinput="searchChangeHandle" bindconfirm="searchHandle"/>
+      <view class="weui-icon-clear" wx:if="{{searchText}}" bindtap="clearSearchHandle">
+        <icon type="clear" size="14"/>
+      </view>
+    </view>
+    <label class="weui-search-bar__label" hidden="{{searchShowed}}" bindtap="showSearchHandle">
+      <icon class="weui-icon-search" type="search" size="14"/>
+      <view class="weui-search-bar__text">搜索</view>
+    </label>
+  </view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!searchShowed}}" bindtap="hideSearchHandle">取消</view>
+</view>
+<view class="searchHistoryView" hidden="{{!searchShowed}}" bindtap="selectHistory">
+  <view class='historyView'>记录1</view>
+  <view class='historyView'>记录2</view>
+  <view class='historyView'>记录3</view>
+</view>
+<view class='hotSearchView'>
+  <view style='padding-left:5px; color: #aaa; font-size:14px;'>大家都在搜</view>
+  <view class='hotTexts'>
+    <text class='hotText'>热dsf 门1</text>
+    <text class='hotText'>热sdf 门2</text>
+    <text class='hotText'>热safa sadf门3</text>
+    <text class='hotText'>热dfsdf门4</text>
+    <text class='hotText'>热dfsdf门4</text>
+    <text class='hotText'>热dfsdf门4</text>
+    <text class='hotText'>热dfsdf门4</text>
+  </view>
+</view>

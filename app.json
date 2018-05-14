@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/cn/ainannan/my/my",
     "pages/cn/ainannan/search/search",
+    "pages/cn/ainannan/my/my",
     "pages/cn/ainannan/index/index"
   ],
   "tabBar": {

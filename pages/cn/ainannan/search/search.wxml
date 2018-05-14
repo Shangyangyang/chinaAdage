@@ -15,19 +15,11 @@
   <view class="weui-search-bar__cancel-btn" hidden="{{!searchShowed}}" bindtap="hideSearchHandle">取消</view>
 </view>
 <view class="searchHistoryView" hidden="{{!searchShowed}}" bindtap="selectHistory">
-  <view class='historyView'>记录1</view>
-  <view class='historyView'>记录2</view>
-  <view class='historyView'>记录3</view>
+  <view class='historyView' wx:for="{{historyList}}" wx:key="{{index}}">{{item}}</view>
 </view>
 <view class='hotSearchView'>
   <view style='padding-left:5px; color: #aaa; font-size:14px;'>大家都在搜</view>
   <view class='hotTexts'>
-    <text class='hotText'>热dsf 门1</text>
-    <text class='hotText'>热sdf 门2</text>
-    <text class='hotText'>热safa sadf门3</text>
-    <text class='hotText'>热dfsdf门4</text>
-    <text class='hotText'>热dfsdf门4</text>
-    <text class='hotText'>热dfsdf门4</text>
-    <text class='hotText'>热dfsdf门4</text>
+    <text class='hotText' wx:for="{{historyList }}">{{item}}</text>
   </view>
 </view>

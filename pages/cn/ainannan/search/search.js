@@ -107,17 +107,22 @@ Page({
     // 搜索记录的保存
     // 如果缓存中搜索记录为空，将当前这一条添加到文件中。
     let historyArr = new Array();
-    if (that.data.historyList == null){
+    if (that.data.historyList == null || that.data.historyList.length == 0){
       console.log("searchList-if执行了。");
       historyArr.unshift(that.data.searchText);
     } else {
       // 有值的情况
-      let historyArr = that.data.historyList;
+      historyArr = that.data.historyList;
       // 如果值等于5条，则删除最老的搜索记录
-      if(historyArr.length == 5){
-        historyArr.pop;
+      while(historyArr.length > 5){
+        historyArr.pop();
       }
-      historyArr.unshift(that.data.searchText);
+      // 未完成：在这里添加重复判断
+      if(true){
+        historyArr.pop();
+      } else {
+        historyArr.unshift(that.data.searchText);
+      }
     }
 
     // 放到js变量池中
@@ -132,6 +137,10 @@ Page({
     });
 
     // 放到服务器数据库中
-
+    fetch(`searchHistory/saveSearchHistory?content=${that.data.searchText}`).then(res => {
+      if(res.data.status == '1'){
+        console.log("添加搜索记录到服务器中成功。");
+      }
+    })
   }
 })

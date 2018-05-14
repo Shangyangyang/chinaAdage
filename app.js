@@ -2,7 +2,8 @@
 
 App({
   config: {
-    apiBase: 'http://17doutu.viphk.ngrok.org/'
+    apiBase: 'http://localhost:8080/'
+    // apiBase: 'http://17doutu.viphk.ngrok.org/'
   },
   globalData: {
     userInfo: null,

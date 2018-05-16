@@ -1,13 +1,17 @@
 const app = getApp();
 var fetch = require("../../../utils/fetch.js");
-var commons = require('../../../utils/commons.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    historyList: null
+    historyList: null,
+    hotList: {},
+    hotShowFlag: false, // 热门搜索区开关
+    noneFlag: true,     // 搜索无结果开关
+    searchList: {},
+    result: []
   },
 
   /**
@@ -15,6 +19,17 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    
+    // 异步获取热门搜索
+    fetch(`searchHistory/getHotList`).then(res => {
+      console.log(res.data.data);
+      if(res.data.status == '1'){
+        that.setData({
+          hotList: res.data.data
+        });
+      }
+    });
+    
     // 异步获取搜索记录
     var historyList = wx.getStorage({
       key: 'historyList',
@@ -30,6 +45,8 @@ Page({
         console.log("getHistoryFail");
       }
     });
+
+
   },
 
   /**
@@ -86,8 +103,9 @@ Page({
     this.searchList();
   },
 
+  // 点击搜索框
   showSearchHandle() {
-    this.setData({ searchShowed: true })
+    this.setData({ searchShowed: true, hotShowFlag: false })
   },
   hideSearchHandle() {
     this.setData({ searchText: '', searchShowed: false })
@@ -98,9 +116,13 @@ Page({
   searchChangeHandle(e) {
     this.setData({ searchText: e.detail.value })
   },
+  selectHistory: function(e){
+    this.setData({
+      searchText: e.currentTarget.dataset.content
+    });
+  },
   /*搜索*/
   searchList: function(){
-    console.log(this.data.searchText);
     var that = this;
     // 搜索操作
 
@@ -108,7 +130,6 @@ Page({
     // 如果缓存中搜索记录为空，将当前这一条添加到文件中。
     let historyArr = new Array();
     if (that.data.historyList == null || that.data.historyList.length == 0){
-      console.log("searchList-if执行了。");
       historyArr.unshift(that.data.searchText);
     } else {
       // 有值的情况
@@ -118,11 +139,13 @@ Page({
         historyArr.pop();
       }
       // 未完成：在这里添加重复判断
-      if(true){
+      let index = historyArr.indexOf(that.data.searchText);
+      if (index > -1){
+        historyArr.splice(index, 1);
+      }else{
         historyArr.pop();
-      } else {
-        historyArr.unshift(that.data.searchText);
       }
+      historyArr.unshift(that.data.searchText);
     }
 
     // 放到js变量池中
@@ -136,11 +159,67 @@ Page({
       data: historyArr,
     });
 
-    // 放到服务器数据库中
-    fetch(`searchHistory/saveSearchHistory?content=${that.data.searchText}`).then(res => {
+    // 搜索
+    var gjz = that.data.searchText;
+    
+    fetch(`adage/searchList?param.id=${app.getUserKey()}&adage=${that.data.searchText}`).then(res => {
       if(res.data.status == '1'){
-        console.log("添加搜索记录到服务器中成功。");
+        let database = res.data.data;
+        if(database.length > 0){
+          // 标红。
+          let hilight_word = function (key, word) {
+            let idx = word.indexOf(key);
+            let t = [];
+            if (idx > -1) {
+              if (idx == 0) {
+                t = hilight_word(key, word.substr(key.length));
+                t.unshift({ key: true, str: key });
+                return t;
+              }
+              if (idx > 0) {
+                t = hilight_word(key, word.substr(idx));
+                t.unshift({ key: false, str: word.substring(0, idx) });
+                return t;
+              }
+            }
+            return [{ key: false, str: word }];
+          };
+          // 赋值
+
+
+          let searched = [];
+
+          for (let i = 0; i < database.length; i++) {
+            var current_word = database[i];
+            if (current_word.adage.indexOf(gjz) > -1) {
+              searched.push(hilight_word(gjz, current_word.adage))
+            }
+          }
+
+          that.data.result = searched;
+          that.setData(that.data);
+
+          that.setData({
+            hotShowFlag: true,
+            noneFlag: true
+          });
+
+        }else{
+          that.setData({
+            noneFlag: false
+          });
+        }        
       }
-    })
+    });
+
+    // 清空搜索框
+    that.setData({searchShowed: false });
+  },
+  selectHotSearch: function(e){
+    this.setData({
+      searchText: e.currentTarget.dataset.content
+    });
+    
+    this.searchList();
   }
 })

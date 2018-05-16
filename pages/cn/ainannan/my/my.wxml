@@ -9,7 +9,7 @@
     <view>我的积分</view>
     <view>{{user.goldCoin}}</view>
   </view>
-  <view class='myCollect collectGoldCoin'>
+  <view class='myCollect collectGoldCoin' bindtap='openMyCollect'>
     <view>我的收藏</view>
     <view>{{user.collect}}</view>
   </view>

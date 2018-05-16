@@ -1,0 +1,5 @@
+/* pages/cn/ainannan/first/first.wxss */
+page{
+  background-image: url('http://localhost:8080/image/start/open-0516.jpg');
+  background-size:100% 100%;
+}

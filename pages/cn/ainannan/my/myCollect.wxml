@@ -1,0 +1,5 @@
+<view>
+  <view wx:for="{{adageList}}" class='list-item'>
+    {{item.adage.adage}}
+  </view>
+</view>

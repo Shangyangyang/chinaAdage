@@ -99,9 +99,16 @@
 
 /*热门搜索区*/
 .hotSearchView{
-  height: 30%;
+  height: 24%;
   border-top: 2px #ccc solid;
-  margin-top: 5px;
+  margin-top: 3px;
+
+}
+
+/*搜索结果列表*/
+.list-item{
+  padding: 8px 0px 8px 10px;
+  border-bottom: 1px #bbb solid;
 }
 
 /*热门搜索文本框区*/

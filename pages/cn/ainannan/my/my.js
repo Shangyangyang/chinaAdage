@@ -1,7 +1,6 @@
 // pages/cn/ainannan/my/my.js
 const app = getApp();
 var fetch = require("../../../utils/fetch.js");
-var commons = require('../../../utils/commons.js');
 Page({
 
   /**
@@ -24,7 +23,6 @@ Page({
     var that = this;
     wx.getUserInfo({
       success: function (res) {
-        console.log(res);
         var avatarUrl = 'userInfo.avatarUrl';
         var nickName = 'userInfo.nickName';
         that.setData({
@@ -32,6 +30,9 @@ Page({
           [nickName]: res.userInfo.nickName,
           hasUserInfo: true
         })
+      },
+      fail: function(res){
+        console.log("调取头像信息被拒绝");
       }
     });
 
@@ -80,5 +81,11 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
+  },
+  openMyCollect: function(e){
+    console.log("openMyCollect?aaa=bbb");
+    wx.navigateTo({
+      url: 'myCollect',
+    })
   }
 })

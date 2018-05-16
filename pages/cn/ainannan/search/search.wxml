@@ -14,12 +14,25 @@
   </view>
   <view class="weui-search-bar__cancel-btn" hidden="{{!searchShowed}}" bindtap="hideSearchHandle">取消</view>
 </view>
-<view class="searchHistoryView" hidden="{{!searchShowed}}" bindtap="selectHistory">
-  <view class='historyView' wx:for="{{historyList}}" wx:key="{{index}}">{{item}}</view>
+<view class="searchHistoryView" hidden="{{!searchShowed}}">
+  <view class='historyView' wx:for="{{historyList}}" wx:key="{{index}}" 
+    bindtap="selectHistory" data-content='{{item}}'>{{item}}</view>
 </view>
-<view class='hotSearchView'>
+<view class='hotSearchView' hidden='{{hotShowFlag}}'>
   <view style='padding-left:5px; color: #aaa; font-size:14px;'>大家都在搜</view>
   <view class='hotTexts'>
-    <text class='hotText' wx:for="{{historyList }}">{{item}}</text>
+    <text class='hotText' wx:for="{{hotList }}" bindtap='selectHotSearch' data-content='{{item.content}}'>{{item.content}}</text>
   </view>
 </view>
+
+<view class='hotSearchView searchResultView' hidden='{{!hotShowFlag}}'>
+  <block wx:for="{{result}}" wx:for-index="idx" wx:for-item="key_item">
+    <view data-idx="{{idx}}" class="list-item">
+      <block wx:for="{{key_item}}" wx:for-item="key_obj">
+        <text wx:if="{{key_obj.key == true}}" style="color:red;">{{key_obj.str}}</text>
+        <text wx:else>{{key_obj.str}}</text>
+      </block>
+    </view>
+  </block>
+</view>
+<view hidden='{{noneFlag}}' style='font-size:14px; color: #666;'>搜索无结果</view>

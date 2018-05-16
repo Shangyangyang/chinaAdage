@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/cn/ainannan/search/search",
+    "pages/cn/ainannan/first/first",
     "pages/cn/ainannan/my/my",
-    "pages/cn/ainannan/index/index"
+    "pages/cn/ainannan/search/search",
+    "pages/cn/ainannan/index/index",
+    "pages/cn/ainannan/my/myCollect"
   ],
   "tabBar": {
     "color": "#7A7E83",

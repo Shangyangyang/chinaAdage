@@ -9,22 +9,24 @@
   </view>
 </view>
 <view class="modal-box" hidden="{{outFlag}}">
-    <view class="modal-body">
-      <text style='color:#fff;'>
-          \n
-          \n
-          　本条提示只出现一次，请仔细阅读。
-          　新朋友每天的浏览谚语上限为5条，
-          　可以通过积分升级上限，
-          　积分可以通过
-          　每天登录、点赞、评论、转发获取，
-          　希望你能慢慢消化每条谚语。
-          \n
-      </text>
-      <button class="knowBtn" bindtap="hide">我知道了</button>
-    </view>
+  <view class="modal-body">
+    <text style='color:#fff;'>
+        \n
+        \n
+        　本条提示只出现一次，请仔细阅读。
+        　新朋友每天的浏览谚语上限为5条，
+        　可以通过积分升级上限，
+        　积分可以通过
+        　每天登录、点赞、评论、转发获取，
+        　希望你能慢慢消化每条谚语。
+        \n
+    </text>
+    <button class="knowBtn" bindtap="hide">我知道了</button>
   </view>
-
+</view>
+<view class='detailView'>
+  点击查看更多
+</view>
 <view class='buttonView'>
   <view class='circle collectshare collectView' bindtap='collect'><text class='centerText'>收藏</text></view>
   <view class='circle nextView' bindtap='next'><text class='centerText'>下一个</text></view>

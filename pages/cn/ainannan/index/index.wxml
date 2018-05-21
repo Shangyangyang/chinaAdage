@@ -24,8 +24,9 @@
     <button class="knowBtn" bindtap="hide">我知道了</button>
   </view>
 </view>
-<view class='detailView'>
-  点击查看更多
+<view class='detailView' bindtap='openDetail' id='{{adage.id}}'>
+  <view class='detailText'>解析：{{adage.outline}}</view>
+  <text id='clickGetMore'>点击了解更多 >></text>
 </view>
 <view class='buttonView'>
   <view class='circle collectshare collectView' bindtap='collect'><text class='centerText'>收藏</text></view>

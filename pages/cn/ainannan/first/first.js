@@ -12,7 +12,7 @@ Page({
       wx.switchTab({
         url: '/pages/cn/ainannan/index/index',
       });
-    },3000);
+    },1000);
   },
 
   skipFirst: function(){

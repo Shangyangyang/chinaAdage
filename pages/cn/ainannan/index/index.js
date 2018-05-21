@@ -118,5 +118,11 @@ Page({
         console.log("转发失败");
       }
     }
+  },
+  openDetail: function(e){
+    let adageId = e.currentTarget.id;
+    wx.navigateTo({
+      url: 'adage?adageId=' + adageId,
+    });
   }
 })

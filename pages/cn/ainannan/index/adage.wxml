@@ -1,0 +1,2 @@
+<!--pages/cn/ainannan/index/adage.wxml-->
+<text>{{adageId}}</text>
